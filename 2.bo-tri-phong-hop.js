@@ -15,7 +15,7 @@ Hãy bố trí phòng họp để phục vụ được nhiều cuộc họp nh�
 */
 
 
-const guild_msg = 'Nhap vao thong tin thue may start1,end1,pay1,start2,end2,pay2,...?\n'
+const guild_msg = 'Nhap vao thong tin thue phong start1,end1,start2,end2,...?\n'
 const main_func = (input) => {
     //Bien doi input
     let raw_array = input.split(",").map(Number)
@@ -42,7 +42,7 @@ const main_func = (input) => {
         for (let j = 0; j < i; j++) {
             if ((array[j].end <= array[i].start) && (l[i] < l[j] + 1)) {
                 l[i] = l[j] + 1;
-                sub_arr[i].push(array[j])
+                sub_arr[i] = [...sub_arr[j]]
             }
         }
         sub_arr[i].push(array[i])
