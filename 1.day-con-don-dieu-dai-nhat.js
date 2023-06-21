@@ -3,13 +3,17 @@ const readline = require('readline').createInterface({
     output: process.stdout
 });
 
+var getFilename = function (str) {
+    return str.split('\\').pop().split('/').pop();
+}
+console.log(getFilename(__filename).split(".")[0])
 /*
 Cho dãy 𝐴1,𝐴2,…,𝐴𝑛
 . Hãy tìm một dãy con tăng có nhiều phần tử nhất của dãy.
 */
 
-console.log(`day-con-don-dieu-dai-nhat`)
-readline.question('Nhap vao day A1,A2,...,An?\n', input => {
+const guild_msg = 'Nhap vao day A1,A2,...,An?\n'
+const main_func = (input) => {
     let array = input.split(",").map(Number)
     console.log(`Day vua nhap ${array}`);
     let l = []
@@ -19,7 +23,7 @@ readline.question('Nhap vao day A1,A2,...,An?\n', input => {
         l[i] = 1
         for (let j = 0; j < i; j++) {
             if ((array[j] <= array[i]) && (l[i] < l[j] + 1)) {
-                l[i] = Math.max(l[i], l[j] + 1);
+                l[i] = l[j] + 1;
                 sub_arr[i].push(array[j])
             }
         }
@@ -29,8 +33,11 @@ readline.question('Nhap vao day A1,A2,...,An?\n', input => {
     console.log(">> Cac day con do la:")
     for (let i = 0; i < l.length; i++) {
         if (l[i] === Math.max(...l)) {
-            console.log(">>>>", sub_arr[i])
+            console.log(">>>>", ...sub_arr[i])
         }
     }
     readline.close();
-});
+}
+
+readline.question(guild_msg, main_func);
+
