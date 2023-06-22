@@ -33,22 +33,29 @@ const main_func = (input) => {
         console.log(`Khoi luong toi da vali la:`, max_weight);
         items.unshift({ weight: 0, value: 0 })
         const L = []
+        const B = []
         for (let i = 0; i < items.length; i++) {
             L[i] = []
+            B[i] = []
             for (let j = 0; j <= max_weight; j++) {
                 if (i === 0 || j === 0) {
                     L[i][j] = 0
+                    B[i][j] = []
                 } else {
                     L[i][j] = L[i - 1][j]
+                    B[i][j] = B[i - 1][j]
                     if (j >= items[i].weight) {
-                        L[i][j] = Math.max(L[i][j], L[i-1][j - items[i].weight] + items[i].value)
+                        if (L[i][j] <= (L[i - 1][j - items[i].weight] + items[i].value)) {
+                            L[i][j] = L[i-1][j - items[i].weight] + items[i].value
+                            B[i][j] = [...B[i-1][j - items[i].weight], i]
+                        }
                     }
                 }
 
             }
         }
-        console.table(L)
-
+        console.table(L[items.length-1][max_weight])
+        console.log(B[items.length-1][max_weight])
     }
     readline.question(guild_msg_2, main_func_2);
 }
