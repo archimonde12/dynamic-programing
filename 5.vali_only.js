@@ -13,7 +13,7 @@ console.log(file_name.join("."))
 /*
 Cho 𝑛 vật, vật 𝑖 nặng 𝐴𝑖 và có giá trị 𝐵𝑖. 
 Hãy chọn ra một số vật để cho vào balô sao cho tổng khối lượng không vượt quá 𝑊 và tổng giá trị là lớn nhất. 
-Chú ý rằng mỗi vật có thể được chọn nhiều lần.
+Chú ý rằng mỗi vật có thể được chọn một lần.
 */
 const guild_msg = 'Nhap vao thong tin do vat: W1,V1,W2,V2?\n'
 const main_func = (input) => {
@@ -33,29 +33,21 @@ const main_func = (input) => {
         console.log(`Khoi luong toi da vali la:`, max_weight);
         items.unshift({ weight: 0, value: 0 })
         const L = []
-        const B = []
         for (let i = 0; i < items.length; i++) {
             L[i] = []
-            B[i] = []
             for (let j = 0; j <= max_weight; j++) {
                 if (i === 0 || j === 0) {
                     L[i][j] = 0
-                    B[i][j] = []
                 } else {
                     L[i][j] = L[i - 1][j]
-                    B[i][j] = B[i - 1][j]
                     if (j >= items[i].weight) {
-                        if (L[i][j] <= (L[i][j - items[i].weight] + items[i].value)) {
-                            L[i][j] = L[i][j - items[i].weight] + items[i].value
-                            B[i] [j] = [...B[i][j - items[i].weight], i]
-                        }
+                        L[i][j] = Math.max(L[i][j], L[i-1][j - items[i].weight] + items[i].value)
                     }
                 }
 
             }
         }
         console.table(L)
-        console.table(B)
 
     }
     readline.question(guild_msg_2, main_func_2);
